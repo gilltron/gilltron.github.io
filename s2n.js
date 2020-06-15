@@ -1,7 +1,6 @@
 var metadata_url = 'https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c?uid=1829643&&lock=true';
 
-//https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c
-//var contacts = metadata.metadata.values.contacts
+//also works: https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c
 
 $.getJSON(metadata_url).then(metadata=>{
     var values = metadata.metadata.values,
