@@ -8,14 +8,14 @@ var metadata_url = "https://researchworkspace.com/files/6472827/metadata.json"
 
 $.getJSON(metadata_url)
     .then(metadata => {
-        var contacts = metadata.metadata.values.contacts
-        console.log(contacts.points_of_contact[0]['person']['last_name'])
-
-        //if ($('input[name="firstname"]').length) {
-        //    alert("Yes!");
-        //} else { alert("Nope!")
-        //}
-
+        var contacts = metadata.metadata.values.contacts.citation_contacts
+        var contact_field = document.forms[1]['first_input']
+        if(typeof(contact_field) != 'undefined' && contact_field != null){
+            for (var i in contacts) {
+                console.log(contacts[i].person)
+            }    
+        }
+        else {console.log("poop13")}
     })
 
 
