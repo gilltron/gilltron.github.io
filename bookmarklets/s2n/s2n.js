@@ -30,10 +30,10 @@ $.getJSON(metadata_url).then(metadata=>{
     $('.persons > button').click();
     
     //related funding agencies
-    $('input[name="funding_agency_input"]').val(funding_agency);//need to define (keyword?)
+    $('input[name="funding_agency_input"]').val(funding_agency);//need to define (keyword?) place
     
     //related projects and/or programs
-    $('input[name="project_input"]').val(project_program);//need to define (keyword?)
+    $('input[name="project_input"]').val(project_program);//need to define (keyword?) project (AMBON)
     
     //PAGE 2: dates and locations
     
@@ -48,7 +48,7 @@ $.getJSON(metadata_url).then(metadata=>{
     $('input[name="eb"]').val(spatial.bounds_and_description.bounding_box[0].e);
     
     //ship names or platform
-    $('input[name="firstLink"]').val();//need to define (keyword?)
+    $('input[name="firstLink"]').val();//need to define (keyword?) platform
     
     //sea areas or regions
     $('input[name="secondLink"]').val(spatial.bounds_and_description.spatial_description);
@@ -56,25 +56,25 @@ $.getJSON(metadata_url).then(metadata=>{
     //PAGE 3: data types
     
     //parameter or variable
-    $('input[id="data_type_edit_1"]').val();//need to define (entity & attribute? or keywords?)
+    $('input[id="data_type_edit_1"]').val();//need to define (entity & attribute? or keywords?) discipline
     
     // measured or calculated
-    $('input[id="MorC_1"]').val();//measured as default? (also a keyword?)
+    $('input[id="MorC_1"]').val();//measured as default? (also a keyword?) discipline
     
     //units
-    $('input[id="unit_1"]').val();//need to define? (entity & attribute? or keyword?)
+    $('input[id="unit_1"]').val();//need to define? (entity & attribute? or keyword?) discipline
     
     // observation type
-    $('input[id="obs_type_1"]').val();//in situ as default? (keyword?)
+    $('input[id="obs_type_1"]').val();//in situ as default? (keyword?) discipline
     
     //sampling instrument
-    $('input[id="si_1"]').val();//need to define (keyword)
+    $('input[id="si_1"]').val();//need to define (keyword) instrument
     
     //sampling and analyzing method
-    $('input[id="sna_method_1"]').val();//need to define (keyword)
+    $('input[id="sna_method_1"]').val();//need to define (keyword) instrument
     
     //data quality method
-    $('input[id="dqi_1"]').val();//need to define (data quality reports? or keyword?)
+    $('input[id="dqi_1"]').val();//need to define (data quality reports? or keyword?) process
     
     //PAGE 4: package description
     
