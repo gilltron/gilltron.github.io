@@ -1,4 +1,4 @@
-var metadata = window.prompt("Enter your name: ");
+var metadata_url = window.prompt("Enter the URL of your metadata record: ");
 //alert("Your name is " + name);
 //var metadata_url = "https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c?uid=1829643&&lock=true"
  

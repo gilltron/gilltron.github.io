@@ -1,4 +1,6 @@
-var metadata_url = 'https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c?uid=1829643&&lock=true';
+var metadata_url = window.prompt("Enter the URL of your metadata record: ");
+
+//var metadata_url = 'https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c?uid=1829643&&lock=true';
 
 //also works: https://researchworkspace.com/api/metadata/objectfull/5edfcc9c24aa9a002fe0971c
 
@@ -18,7 +20,7 @@ $.getJSON(metadata_url).then(metadata=>{
     //PAGE 1: people and projects
     
     //responsible persons (make loop for multiples)
-    $('input[name="firstname"]').val(citation.person.first_name);//citation or points of?
+    $('input[name="firstname"]').val(citation.person.first_name);
     $('input[name="lastname"]').val(citation.person.last_name);
     $('input[name="email"]').val(citation.address.email);
     $('input[name="suffix"]').val(roleMap[citation.role]);
@@ -28,10 +30,10 @@ $.getJSON(metadata_url).then(metadata=>{
     $('.persons > button').click();
     
     //related funding agencies
-    $('input[name="funding_agency_input"]').val(funding_agency);//need to define
+    $('input[name="funding_agency_input"]').val(funding_agency);//need to define (keyword?)
     
     //related projects and/or programs
-    $('input[name="project_input"]').val(project_program);//need to define
+    $('input[name="project_input"]').val(project_program);//need to define (keyword?)
     
     //PAGE 2: dates and locations
     
@@ -46,7 +48,7 @@ $.getJSON(metadata_url).then(metadata=>{
     $('input[name="eb"]').val(spatial.bounds_and_description.bounding_box[0].e);
     
     //ship names or platform
-    $('input[name="firstLink"]').val();//need to define
+    $('input[name="firstLink"]').val();//need to define (keyword?)
     
     //sea areas or regions
     $('input[name="secondLink"]').val(spatial.bounds_and_description.spatial_description);
@@ -54,27 +56,27 @@ $.getJSON(metadata_url).then(metadata=>{
     //PAGE 3: data types
     
     //parameter or variable
-    $('input[id="data_type_edit_1"]').val();//need to define
+    $('input[id="data_type_edit_1"]').val();//need to define (entity & attribute? or keywords?)
     
     // measured or calculated
-    $('input[id="MorC_1"]').val();//measured as default?
+    $('input[id="MorC_1"]').val();//measured as default? (also a keyword?)
     
     //units
-    $('input[id="unit_1"]').val();//need to define?
+    $('input[id="unit_1"]').val();//need to define? (entity & attribute? or keyword?)
     
     // observation type
-    $('input[id="obs_type_1"]').val();//in situ as default?
+    $('input[id="obs_type_1"]').val();//in situ as default? (keyword?)
     
     //sampling instrument
-    $('input[id="si_1"]').val();//need to define
+    $('input[id="si_1"]').val();//need to define (keyword)
     
     //sampling and analyzing method
-    $('input[id="sna_method_1"]').val();//need to define
+    $('input[id="sna_method_1"]').val();//need to define (keyword)
     
     //data quality method
-    $('input[id="dqi_1"]').val();//need to define
+    $('input[id="dqi_1"]').val();//need to define (data quality reports? or keyword?)
     
-    //PAGE 4: package description (use NCEI title?)
+    //PAGE 4: package description
     
     //title
     $('input[id="title"]').val(values.description.title);
@@ -83,16 +85,16 @@ $.getJSON(metadata_url).then(metadata=>{
     $('input[id="abstract"]').val(values.description.abstract);
     
     //dataset author list
-    $('input[id="author_list"]').val();//build in contacts above?
+    $('input[id="author_list"]').val();//build from contacts
     
     //purpose
     $('input[id="purpose"]').val(values.description.purpose);
     
-    //references
-    $('input[id="reference"]').val();//need to define
+    //reference
+    $('input[id="reference"]').val();//need to define (build from: author list, title, program?)
     
     //PAGE 5: upload & submit
-    $('input[id="file_input_1"').val();//can be link to RW file?
+    $('input[id="file_input_1"').val();//can be link to RW file? prompt user for link?
 
  })
 
