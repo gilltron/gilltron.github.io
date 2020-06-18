@@ -7,11 +7,18 @@ var metadata_url = "https://researchworkspace.com/files/6472827/metadata.json"
 
 $.getJSON(metadata_url)
     .then(metadata => {
-        var contacts = metadata.metadata.values.contacts.citation_contacts
+
+        // define some higher level variables
+        var values = metadata.metadata.values;
+        var contacts = values.contacts.citation_contacts;
         var roleMap = {
                 principalInvestigator:'principal investigator',
                 originator:'primary point of contact'
             }
+        var funding_agency = values.contacts.credits[0];
+        var project_program = values.contacts.credits[1];
+
+        // insert contacts
         var contact_field = document.forms[1]['first_input']
         if(typeof(contact_field) != 'undefined' && contact_field != null){
             for (var i in contacts) {
@@ -21,19 +28,34 @@ $.getJSON(metadata_url)
                 $('input[name="email"]').val(contacts[i].address.email);
                 $('input[name="institution"]').val(contacts[i].position.organization);
 
-                $('.persons > button').click();
-                //$('.addAnotherperson > button').click();
-                $(document.getElementById("addAnotherperson").click());
+                saveInput['person'];
+                //$('.persons > button').click();
 
-                //$('input[name="firstname"]').val(citation.person.first_name);
-                //$('input[name="lastname"]').val(citation.person.last_name);
-                //$('input[name="email"]').val(citation.address.email);
-                //$('input[name="suffix"]').val(roleMap[citation.role]);
-                //$('input[name="institution"]').val(citation.position.organization);
+
+                //if(i != 0) {
+                //$(document.getElementById("addAnotherperson").click());
+               // }
+
+              
             }    
         }
-        else {console.log("poop13")}
-    })
+        else {console.log("poop13")
+        }
 
-//XMLHttprequesterror
+        //insert funding agency
+        var field = document.forms[2]['funding_agency_input']
+        if(typeof(field) != 'undefined' && field != null) {
+            $('input[name="funding_agency_input"]').val(funding_agency);
+            saveInput('funding_agency');
+        }
+
+        //insert related projects and/or programs
+        var field = document.forms[3]['project_input']
+        if(typeof(field) != 'undefined' && field != null) {
+            $('input[name="project_input"]').val(project_program);
+            saveInput('project');
+        }
+})
+
+//localStorage.clear()
 
