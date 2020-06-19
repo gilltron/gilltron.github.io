@@ -28,6 +28,11 @@ $.getJSON(metadata_url)
         var sampling_instrument = values.contacts.credits[9];
         var sampling_method = values.contacts.credits[10];
         var data_quality_method = values.contacts.credits[11];
+        var dataset_title = values.description.title;
+        var abstract = values.description.abstract;
+        var dataset_author_list = contacts.citation_contacts.person.last_name; //build from JSON
+        var purpose = values.description.purpose;
+        var reference = dataset_author_list + title + start_date + end_date; //build from other vars
 
 
         //FORM PAGE 1
@@ -90,7 +95,7 @@ $.getJSON(metadata_url)
         function input_platform(){
                 var field = $('#')
                 if(field.length) {
-                    field.val(platform);
+                    $('input[id=""]').val(platform);
                         saveInput();
                 }
         }
@@ -108,7 +113,13 @@ $.getJSON(metadata_url)
         function input_datatypes(){
                 var field = $('#')
                 if(field.length) {
-                    $('input[id="sea_name_input_1"]'.val(sea_name)
+                    $('input[id=""]').val(parameter);
+                    $('input[id=""]').val(measured_or_calculated);
+                    $('input[id=""]').val(units);
+                    $('input[id=""]').val(observation_category);
+                    $('input[id=""]').val(sampling_instrument);
+                    $('input[id=""]').val(sampling_method);
+                    $('input[id=""]').val(data_quality_method);
                         saveInput();
                 }
         }
@@ -118,7 +129,11 @@ $.getJSON(metadata_url)
         function input_packagedescription(){
                 var field = $('#')
                 if(field.length) {
-                    field.val();
+                    $('input[id=""]').val(dataset_title);
+                    $('input[id=""]').val(abstract);
+                    $('input[id=""]').val(dataset_author_list);
+                    $('input[id=""]').val(purpose);
+                    $('input[id=""]').val(reference);
                         saveInput();
                 }
         }
@@ -144,4 +159,5 @@ setTimeout(input_projects, 4000);
 //input_packagedescription():
 
 })
+
 
