@@ -118,33 +118,34 @@ $.getJSON(metadata_url)
 
         function input_datatypes(){
 
-                 $('input[id="data_type_edit_1"]').val(parameter);
-                 $('input[id="MorC_1"]').val(measured_or_calculated);
-                 $('input[id="unit_1"]').val(units);
-                 $('input[id="obs_type_1"]').val(observation_category);
-                 $('input[id="si_1"]').val(sampling_instrument);
-                 $('input[id="sna_method_1"]').val(sampling_method);
-                 $('input[id="dqi_1"]').val(data_quality_method);
+                 $('input#data_type_input').val(parameter);
+                 $('input[name="MorC"]').val("M");
+                 $('input#unit_input').val(units);
+                 $('input#obs_category_input').val(observation_category);
+                 $('input#si_input').val(sampling_instrument);
+                 $('input#sna_method_input').val(sampling_method);
+                 $('input#dqi_input').val(data_quality_method);
 
                  console.log("clicking data type button")
-                 saveInput();
+                 saveInput('data_type');
         }
 
         //FORM PAGE 4
 
         function input_packagedescription(){
 
-                 $('input[id="title"]').val(dataset_title);
-                 $('input[id="abstract"]').val(abstract);
-                 $('input[id="author_list"]').val(dataset_author_list);
-                 $('input[id="purpose"]').val(purpose);
-                 $('input[id="reference"]').val(reference);
+                 $('textarea#title').disabled=false;
+                 $('textarea#title').val(dataset_title);
+                 $('textarea#abstract').val(abstract);
+                 $('textarea#author_list').val(dataset_author_list);
+                 $('textarea#purpose').val(purpose);
+                 $('textarea#reference').val(reference);
 
                  console.log("entering package description")
         }
 
         //PAGE 5: upload & submit
-                    //$('input[id="file_input_1"').val();//can be link to RW file? prompt user for link?
+        //$('input[id="file_input_1"').val();//can be link to RW file? prompt user for link?
 
 
 //check for input then call appropriate function(s) for the page
@@ -169,13 +170,13 @@ if($('#first_input').length) {
       
           console.log("we are on page 3")
           //run page 3
-          //input_datatypes();
+          input_datatypes();
 
             } else if ($('textarea#title')) {
 
             console.log("we are on page 4")
             //run page 4
-            //input_packagedescription();
+            input_packagedescription();
 
 }
 
