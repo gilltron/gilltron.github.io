@@ -57,8 +57,11 @@ $.getJSON(metadata_url)
                         $('input[name="email"]').val(contacts[i].address.email);
                         $('input[name="institution"]').val(contacts[i].position.organization);
 
+                        console.log("clicking person button")
                         $('.persons > button').click();
                     }    
+                } else {
+                        console.log("no contact field")
                 }
         }
 
@@ -67,7 +70,10 @@ $.getJSON(metadata_url)
             var field = $('#funding_agency_input')
                 if(field.length) {
                         field.val(funding_agency);
+                        console.log("click funder button")
                         saveInput('funding_agency');
+                } else {
+                        console.log("no funder field")
                 }
         }
 
@@ -75,7 +81,10 @@ $.getJSON(metadata_url)
                 var field = $('#project_input')
                 if(field.length) {
                     field.val(project_program);
+                        console.log("clicking project button")
                         saveInput('project');
+                } else {
+                        console.log("no project field")
                 }
         }
 
@@ -86,7 +95,10 @@ $.getJSON(metadata_url)
                 if(field.length) {
                     $('input[name="startdate"]').val(start_date);
                     $('input[name="enddate"]').val(end_date);
+                    console.log("entering dates")
                         //saveInput();
+                } else {
+                    console.log("no date fields")    
                 }
         }
 
@@ -97,23 +109,32 @@ $.getJSON(metadata_url)
                     $('input[name="sb"]').val(south_boundary);
                     $('input[name="eb"]').val(east_boundary);
                     $('input[name="wb"]').val(west_boundary);
+                    console.log("entering location boundaries")
                         //saveInput();
+                } else {
+                        console.log("no boundary fields")
                 }
         }
 
         function input_platform(){
-                var field = $('#')
+                var field = $('#formPlatform')
                 if(field.length) {
                     $('input[id="firstLink"]').val(platform);
-                        saveInput();
+                        saveInput('platform');
+                        console.log("clicking platform button")
+                } else {
+                        console.log("no platform field")
                 }
         }
 
         function input_seaname(){
-                var field = $('#')
+                var field = $('#formSeaName')
                 if(field.length) {
-                    $('input[id="secondLink"]'.val(sea_name);
-                        saveInput();
+                    $('input[id="secondLink"]').val(sea_name);
+                        saveInput('sea_name');
+                        console.log("clicking region button")
+                } else {
+                        console.log("no region field")
                 }
         }
 
@@ -130,6 +151,9 @@ $.getJSON(metadata_url)
                     $('input[id="sna_method_1"]').val(sampling_method);
                     $('input[id="dqi_1"]').val(data_quality_method);
                         saveInput();
+                        console.log("clicking data type button")
+                } else {console.log("no data type fields")
+
                 }
         }
 
@@ -143,7 +167,10 @@ $.getJSON(metadata_url)
                     $('input[id="author_list"]').val(dataset_author_list);
                     $('input[id="purpose"]').val(purpose);
                     $('input[id="reference"]').val(reference);
-                        saveInput();
+                    console.log("entering package description")
+                        //saveInput();
+                } else {
+                        console.log("no package description fields")
                 }
         }
 
@@ -157,19 +184,16 @@ setTimeout(input_funders, 2000);
 setTimeout(input_projects, 4000);
 
 //run page 2
-
-//input_dates();
-//setTimeout(input_location, 2000);
-//setTimeout(input_platform, 4000);
-//setTimeout(input_seaname, 6000);
+input_dates();
+setTimeout(input_location, 2000);
+setTimeout(input_platform, 4000);
+setTimeout(input_seaname, 6000);
 
 //run page 3
-
-//input_datatypes();
+input_datatypes();
 
 //run page 4
-
-//input_packagedescription():
+input_packagedescription();
 
 })
 
