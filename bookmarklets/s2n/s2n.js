@@ -4,9 +4,25 @@ var metadata_url = "https://researchworkspace.com/files/6472827/metadata.json"
 $.getJSON(metadata_url)
     .then(metadata => {
 
+        //helpful functions
+        const padDeg = (deg,padLen) => {
+            padLen = padLen || 4;
+            return Number(deg).toFixed(padLen);
+        }
+
+        const padDatePart = (val,expLen)=>{
+            expLen = expLen || 2;
+            let str = String(val)
+            let missingPad = expLen - str.length;
+            if(missingPad > 0){
+                str = new Array(missingPad).fill('0').join('') + str;
+            }
+            return str;
+        }
+
         //VARS PAGE 1
         var values = metadata.metadata.values;
-        var contacts = values.contacts.citation_contacts;//loop for multiples
+        var contacts = values.contacts.citation_contacts;
         var roleMap = {
                 author:'principal investigator',
                 originator:'primary point of contact',
@@ -19,12 +35,12 @@ $.getJSON(metadata_url)
 
         //VARS PAGE 2
         var time_range = values.time_period.coverage[0].range;
-        var start_date = time_range.start.year + "-" + time_range.start.month + "-" + time_range.start.day;
-        var end_date = time_range.end.year + "-" + time_range.end.month + "-" + time_range.end.day;
-        var north_boundary = values.spatial.bounds_and_description.bounding_box[0].n;
-        var south_boundary = values.spatial.bounds_and_description.bounding_box[0].s;
-        var east_boundary = values.spatial.bounds_and_description.bounding_box[0].e;
-        var west_boundary = values.spatial.bounds_and_description.bounding_box[0].w;
+        var start_date = time_range.start.year + "-" + padDatePart(time_range.start.month) + "-" + padDatePart(time_range.start.day);
+        var end_date = time_range.end.year + "-" + padDatePart(time_range.end.month) + "-" + padDatePart(time_range.end.day);
+        var north_boundary = padDeg(values.spatial.bounds_and_description.bounding_box[0].n);
+        var south_boundary = padDeg(values.spatial.bounds_and_description.bounding_box[0].s);
+        var east_boundary = padDeg(values.spatial.bounds_and_description.bounding_box[0].e);
+        var west_boundary = padDeg(values.spatial.bounds_and_description.bounding_box[0].w);
         var platform = values.contacts.credits[2];
         var sea_name = values.spatial.bounds_and_description.spatial_description;
 
@@ -40,7 +56,14 @@ $.getJSON(metadata_url)
         //VARS PAGE 4
         var dataset_title = values.description.title;
         var abstract = values.description.abstract;
-        var dataset_author_list = contacts[0].person.last_name + ", " + contacts[0].person.first_name;//loop for multiples
+        var dataset_author_list = ""
+        for(var i in contacts) {
+            dataset_author_list = dataset_author_list
+             + "; " + contacts[i].person.last_name
+              + ", " + contacts[i].person.first_name
+        };
+        console.log(dataset_author_list)
+        //var dataset_author_list = contacts[0].person.last_name + ", " + contacts[0].person.first_name;//loop for multiples
         var purpose = values.description.purpose;
         var reference = dataset_author_list + ". " + dataset_title + ". " + "Dataset. Research Workspace.";
 
@@ -176,7 +199,7 @@ if($('#first_input').length) {
 
             console.log("we are on page 4")
             //run page 4
-            input_packagedescription();
+            //input_packagedescription();
 
 }
 
