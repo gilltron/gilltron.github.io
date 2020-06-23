@@ -217,7 +217,7 @@ if($('#first_input').length) {
 
             console.log("we are on page 4")
             //run page 4
-            //input_packagedescription();
+            input_packagedescription();
 
 }
 
