@@ -123,7 +123,9 @@ $.getJSON(metadata_url)
         function input_dates(){
 
                  $('input[name="startdate"]').val(start_date);
+                 saveTab2Input('start_date', $('#start_date').val());
                  $('input[name="enddate"]').val(end_date);
+                 saveTab2Input('end_date', $('#end_date').val());
 
                  console.log("entering dates")
         }
@@ -131,9 +133,13 @@ $.getJSON(metadata_url)
         function input_location(){
 
                  $('input#n_boundary').val(north_boundary);
+                 saveTab2Input('n_boundary', $('#n_boundary').val());
                  $('input[name="sb"]').val(south_boundary);
+                 saveTab2Input('s_boundary', $('#s_boundary').val());
                  $('input[name="eb"]').val(east_boundary);
+                 saveTab2Input('e_boundary', $('#e_boundary').val());
                  $('input[name="wb"]').val(west_boundary);
+                 saveTab2Input('w_boundary', $('#w_boundary').val());
 
                  console.log("entering location boundaries")
         }
@@ -164,8 +170,8 @@ $.getJSON(metadata_url)
                  $('input#unit_input').val(units);
                  $('input#obs_category_input').val(observation_category);
                  $('input#si_input').val(sampling_instrument);
-                 $('input#sna_method_input').val(sampling_method);
-                 $('input#dqi_input').val(data_quality_method);
+                 $('textarea#sna_method_input').val(sampling_method);
+                 $('textarea#dqi_input').val(data_quality_method);
 
                  console.log("clicking data type button")
                  saveInput('data_type');
@@ -177,10 +183,15 @@ $.getJSON(metadata_url)
 
                  $('textarea#title').disabled=false;
                  $('textarea#title').val(dataset_title);
+                 saveTab2Input('title', $('#title').val());
                  $('textarea#abstract').val(abstract);
+                 saveTab2Input('abstract', $('#abstract').val());
                  $('textarea#author_list').val(dataset_author_list);
+                 saveTab2Input('dataset_author_list', $('#dataset_author_list').val());
                  $('textarea#purpose').val(purpose);
+                 saveTab2Input('purpose', $('#pupose').val());
                  $('textarea#reference').val(reference);
+                 saveTab2Input('reference', $('reference').val());
 
                  console.log("entering package description")
         }
