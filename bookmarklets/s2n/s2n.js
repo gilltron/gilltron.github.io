@@ -181,17 +181,33 @@ $.getJSON(metadata_url)
 
         function input_packagedescription(){
 
-                 $('textarea#title').disabled=false;
-                 $('textarea#title').val(dataset_title);
-                 saveTab2Input('title', $('#title').val());
-                 $('textarea#abstract').val(abstract);
-                 saveTab2Input('abstract', $('#abstract').val());
-                 $('textarea#author_list').val(dataset_author_list);
-                 saveTab2Input('dataset_author_list', $('#dataset_author_list').val());
-                 $('textarea#purpose').val(purpose);
-                 saveTab2Input('purpose', $('#pupose').val());
-                 $('textarea#reference').val(reference);
-                 saveTab2Input('reference', $('reference').val());
+                 //$('textarea#title').disabled=false;
+                 updateTab4Column('recommended_title', 'N');
+                 
+                 setTimeout(function () {
+                     $('textarea#title').val(dataset_title);
+                     updateTab4Column('title', $('#title').val());
+                 }, 1000)
+                 
+                 setTimeout(function () {
+                     $('textarea#abstract').val(abstract);
+                     updateTab4Column('abstract', $('#abstract').val());
+                 }, 3000)
+                 
+                 setTimeout(function () {
+                     $('textarea#author_list').val(dataset_author_list);
+                     updateTab4Column('author_list', $('#author_list').val());
+                 }, 5000)    
+                 
+                 setTimeout(function () {
+                     $('textarea#purpose').val(purpose);
+                     updateTab4Column('purpose', $('#purpose').val());
+                 }, 7000)
+                 
+                 setTimeout(function () {
+                     $('textarea#reference').val(reference);
+                     updateTab4Column('reference', $('#reference').val());
+                 }, 9000)
 
                  console.log("entering package description")
         }
