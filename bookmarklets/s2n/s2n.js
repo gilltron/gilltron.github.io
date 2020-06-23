@@ -30,7 +30,6 @@ $.getJSON(metadata_url)
                 principalInvestigator:'principal investigator',
         }
         var funding_agency = values.contacts.credits[0];
-
         var project_program = values.contacts.credits[1];
 
         //VARS PAGE 2
@@ -59,31 +58,50 @@ $.getJSON(metadata_url)
         var dataset_author_list = ""
         for(var i in contacts) {
             dataset_author_list = dataset_author_list
-             + "; " + contacts[i].person.last_name
+             + contacts[i].person.last_name
               + ", " + contacts[i].person.first_name
+              if (i != contacts.length-1) {
+                  dataset_author_list = dataset_author_list + "; "
+              }
         };
-        console.log(dataset_author_list)
-        //var dataset_author_list = contacts[0].person.last_name + ", " + contacts[0].person.first_name;//loop for multiples
         var purpose = values.description.purpose;
         var reference = dataset_author_list + ". " + dataset_title + ". " + "Dataset. Research Workspace.";
 
-
         //FORM PAGE 1
-
+        
         function input_contacts(){
             for (var i in contacts) {
 
-                $('input[name="firstname"]').val(contacts[i].person.first_name);
-                $('input[name="lastname"]').val(contacts[i].person.last_name);
-                $('input[name="suffix"]').val(roleMap[contacts[i].role]);
-                $('input[name="email"]').val(contacts[i].address.email);
-                $('input[name="institution"]').val(contacts[i].position.organization);
+                if(i == 0) {
 
-                console.log("clicking person button")
-                $('.persons > button').click();
+                    $('input[name="firstname"]').val(contacts[i].person.first_name);
+                    $('input[name="lastname"]').val(contacts[i].person.last_name);
+                    $('input[name="suffix"]').val(roleMap[contacts[i].role]);
+                    $('input[name="email"]').val(contacts[i].address.email);
+                    $('input[name="institution"]').val(contacts[i].position.organization);
+
+                    console.log("clicking person button");
+                    $('.persons > button').click();
+
+                } else {
+                    setTimeout( function() {
+
+                    console.log("hitting add new button");
+                    editInput('person', 'N', null);
+                    $('input[name="firstname"]').val(contacts[i].person.first_name);
+                    $('input[name="lastname"]').val(contacts[i].person.last_name);
+                    $('input[name="suffix"]').val(roleMap[contacts[i].role]);
+                    $('input[name="email"]').val(contacts[i].address.email);
+                    $('input[name="institution"]').val(contacts[i].position.organization);
+
+                    console.log("clicking save person button... again");
+                    $('.persons > button').click();
+                    
+                    }, 4000 * i)
+                }
+
             }
         }
-
         function input_funders(){
 
                 $('input#funding_agency_input').val(funding_agency);
@@ -177,8 +195,8 @@ if($('#first_input').length) {
     console.log("we are on page 1")
     //run page 1
     input_contacts();
-    setTimeout(input_funders, 2000);
-    setTimeout(input_projects, 4000);
+    setTimeout(input_funders, 6000 * contacts.length);
+    setTimeout(input_projects, 8000 * contacts.length);
 
     } else if ($('#start_date').length) {
     
