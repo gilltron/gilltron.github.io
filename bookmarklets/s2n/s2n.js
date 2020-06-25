@@ -215,6 +215,16 @@ $.getJSON(metadata_url)
         //PAGE 5: upload & submit
         //$('input[id="file_input_1"').val();//can be link to RW file? prompt user for link?
 
+        //continue buttons
+        //page 1
+        //$('button[id="nextButton"]').click();
+        //page 2
+        //$('button[id="continueButton"]').click();
+        //page 3
+        //$('button[id="nextButton"]').click();
+        //page 4
+        //$('button[id="continue"]').click()
+
 
 //check for input then call appropriate function(s) for the page
 if($('#first_input').length) {
