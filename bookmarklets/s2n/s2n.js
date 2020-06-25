@@ -1,7 +1,8 @@
-//var metadata_url = window.prompt("Enter the URL of your metadata record: ");
-var metadata_url = "https://researchworkspace.com/files/6472827/metadata.json"
+var metadata_url = window.prompt("Enter the URL of your metadata record: ");
+var metadata_raw = metadata_url.replace('file', 'files')
+//var metadata_url = "https://researchworkspace.com/files/6472827/metadata.json"
 
-$.getJSON(metadata_url)
+$.getJSON(metadata_raw)
     .then(metadata => {
 
         //helpful functions
