@@ -226,6 +226,21 @@ $.getJSON(metadata_raw)
         //page 4
         //$('button[id="continue"]').click()
 
+        //getting at data tables and attributes
+        //$.getJSON(metadata_raw)
+            //.then(metadata=> {
+                //var values = metadata.metadata.values;
+                //var data_tables = values.entity.data_table;
+
+                //for(i in data_tables) {
+                    //console.log(data_tables[i].entity.table_description.code_name)
+                    //for(j in data_tables[i].attributes) {
+                        console.log(data_tables[i].attributes[j].attribute_basics.code_name)
+
+                    //}
+                //}
+        //})
+
 
 //check for input then call appropriate function(s) for the page
 if($('#first_input').length) {
