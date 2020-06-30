@@ -253,7 +253,7 @@ $.getJSON(metadata_raw)
                 //for(i in data_tables) {
                     //console.log(data_tables[i].entity.table_description.code_name)
                     //for(j in data_tables[i].attributes) {
-                        console.log(data_tables[i].attributes[j].attribute_basics.code_name)
+                        //console.log(data_tables[i].attributes[j].attribute_basics.code_name)
 
                     //}
                 //}
