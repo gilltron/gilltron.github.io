@@ -46,12 +46,6 @@ $.getJSON(metadata_raw)
 
         //VARS PAGE 3
         var data_tables = values.entity.data_table;
-        //var parameter = values.contacts.credits[5]; // loop for multiples
-        //var measured_or_calculated = window.prompt("Please enter M for measured and C for calculated.");
-        //var units = values.contacts.credits[7];
-        //var observation_category = window.prompt("Please enter one of these: laboratory analysis, model output, in situ, satellite, other.");
-        //var sampling_instrument = window.prompt("Please enter sampling instrument (e.g., SeaBird CTD).");
-        //var sampling_method = window.prompt("Please enter a sampling method if you have one.");
         var data_quality_reports = values.quality_reports;
 
         //VARS PAGE 4
@@ -165,51 +159,66 @@ $.getJSON(metadata_raw)
 
         //FORM PAGE 3
 
-        function input_datatypes(){
+        function input_datatypes() {
 
             for(i in data_tables) {
-                var table_name = data_tables[i].entity.table_description.code_name;
                 
                 for(j in data_tables[i].attributes) {
-                    var parameter = data_tables[i].attributes[j].attribute_basics.code_name;
 
-                    if(window.confirm("Input this parameter?\n " + table_name + ":\n " + parameter)){
-                        $('input#data_type_input').val(parameter);
+                    if(i == 0 && j == 0) {
 
-                        var measured_or_calculated = window.prompt("Please enter M for measured and C for calculated.");
-                        $('input[name="MorC"]').val(measured_or_calculated);
+                        if(window.confirm("Input the parameter " + data_tables[i].attributes[j].attribute_basics.code_name + "?")) {
 
-                        if(data_tables[i].attributes[j].attribute_basics.units != undefined){
-                            var units = data_tables[i].attributes[j].attribute_basics.units.unit;
-                        }   
-                            else {
-                            var units = window.prompt("Please enter units: ")
-                            };
-                        $('input#unit_input').val(units);
+                                $('input#data_type_input').val(data_tables[i].attributes[j].attribute_basics.code_name);
+
+                                    if(data_tables[i].attributes[j].attribute_basics.units != undefined){
+                                        $('input#unit_input').val(data_tables[i].attributes[j].attribute_basics.units.unit);
+                                    } else {
+                                        $('input#unit_input').val("Unknown");
+                                    };
+
+                                $('input#obs_category_input').val("M");
+                                $('input#si_input').val("Sampling instrument");
+                                $('textarea#sna_method_input').val("Sampling method");
+                                $('textarea#dqi_input').val("Data quality method");      
+                
+                                console.log("clicking data type button");
+                                saveInput('data_type');
                         
-                        var observation_category = window.prompt("Please enter one of these: laboratory analysis, model output, in situ, satellite, other.");
-                        $('input#obs_category_input').val(observation_category);
+                        }; //end of if(window.confirm) 
+                    
+                    } else {
 
-                        var sampling_instrument = window.prompt("Please enter sampling instrument (e.g., SeaBird CTD).");
-                        $('input#si_input').val(sampling_instrument);
+                        setTimeout( function() {
 
-                        var sampling_method = window.prompt("Please enter a sampling method if you have one.");
-                        $('textarea#sna_method_input').val(sampling_method);
+                            editInput('data_type', 'N', null);
 
-                        for(k in data_quality_reports.consistency) {
-                            data_quality_method = window.prompt("Use this data quality report? " + data_quality_reports[k]);
-                    }
-                        $('textarea#dqi_input').val(data_quality_method);
+                            if(window.confirm("Input the parameter " + data_tables[i].attributes[j].attribute_basics.code_name + "?")) {
 
-                    }
+                                $('input#data_type_input').val(data_tables[i].attributes[j].attribute_basics.code_name);
 
+                                    if(data_tables[i].attributes[j].attribute_basics.units != undefined){
+                                        $('input#unit_input').val(data_tables[i].attributes[j].attribute_basics.units.unit);
+                                    } else {
+                                        $('input#unit_input').val("Unknown");
+                                    };
 
-                    }                
-                }
-                 console.log("clicking data type button")
-                 saveInput('data_type');
-            }
-
+                                $('input#obs_category_input').val("M");
+                                $('input#si_input').val("Sampling instrument");
+                                $('textarea#sna_method_input').val("Sampling method");
+                                $('textarea#dqi_input').val("Data quality method");      
+                
+                                console.log("clicking data type button");
+                                saveInput('data_type');
+                        
+                            }; //end of second if(window.confirm) 
+                        
+                        }, 2000 * j) //endofsettimout function
+                    } //end of else
+                } //end of for j
+            }//end of for i
+        }//end of function
+  
         //FORM PAGE 4
 
         function input_packagedescription(){
@@ -258,21 +267,6 @@ $.getJSON(metadata_raw)
         //page 4
         //$('button[id="continue"]').click()
 
-        //getting at data tables and attributes
-        //$.getJSON(metadata_raw)
-            //.then(metadata=> {
-                //var values = metadata.metadata.values;
-                //var data_tables = values.entity.data_table;
-
-                //for(i in data_tables) {
-                    //console.log(data_tables[i].entity.table_description.code_name)
-                    //for(j in data_tables[i].attributes) {
-                        //console.log(data_tables[i].attributes[j].attribute_basics.code_name)
-
-                    //}
-                //}
-        //})
-
 
 //check for input then call appropriate function(s) for the page
 if($('#first_input').length) {
@@ -307,5 +301,3 @@ if($('#first_input').length) {
 }
 
 })
-
-
