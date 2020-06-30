@@ -168,33 +168,47 @@ $.getJSON(metadata_raw)
         function input_datatypes(){
 
             for(i in data_tables) {
-                var table = data_tables[i];
-                for(j in table.attributes) {
-                    var table_name = table[i].entity.table_description.code_name;
-                    var parameter = table[i].attribute[j].attribute_basics.code_name;
-                    var measured_or_calculated = window.prompt("Please enter M for measured and C for calculated.");
-                    var units = table[i].attribute[j].attribute_basics.units.unit;
-                    var observation_category = window.prompt("Please enter one of these: laboratory analysis, model output, in situ, satellite, other.");
-                    var sampling_instrument = window.prompt("Please enter sampling instrument (e.g., SeaBird CTD).");
-                    var sampling_method = window.prompt("Please enter a sampling method if you have one.");
-                    for(k in data_quality_reports.consistency) {
-                        data_quality_method = window.prompt("Use this data quality report? " + data_quality_reports[k]);
+                var table_name = data_tables[i].entity.table_description.code_name;
+                
+                for(j in data_tables[i].attributes) {
+                    var parameter = data_tables[i].attributes[j].attribute_basics.code_name;
+
+                    if(window.confirm("Input this parameter?\n " + table_name + ":\n " + parameter)){
+                        $('input#data_type_input').val(parameter);
+
+                        var measured_or_calculated = window.prompt("Please enter M for measured and C for calculated.");
+                        $('input[name="MorC"]').val(measured_or_calculated);
+
+                        if(data_tables[i].attributes[j].attribute_basics.units != undefined){
+                            var units = data_tables[i].attributes[j].attribute_basics.units.unit;
+                        }   
+                            else {
+                            var units = window.prompt("Please enter units: ")
+                            };
+                        $('input#unit_input').val(units);
+                        
+                        var observation_category = window.prompt("Please enter one of these: laboratory analysis, model output, in situ, satellite, other.");
+                        $('input#obs_category_input').val(observation_category);
+
+                        var sampling_instrument = window.prompt("Please enter sampling instrument (e.g., SeaBird CTD).");
+                        $('input#si_input').val(sampling_instrument);
+
+                        var sampling_method = window.prompt("Please enter a sampling method if you have one.");
+                        $('textarea#sna_method_input').val(sampling_method);
+
+                        for(k in data_quality_reports.consistency) {
+                            data_quality_method = window.prompt("Use this data quality report? " + data_quality_reports[k]);
+                    }
+                        $('textarea#dqi_input').val(data_quality_method);
+
                     }
 
-                    if(window.confirm("Input this parameter?\n" + table_name + ":\n " + parameter)) {
-                        $('input#data_type_input').val(parameter);
-                        $('input[name="MorC"]').val(measured_or_calculated);
-                        $('input#unit_input').val(units);
-                        $('input#obs_category_input').val(observation_category);
-                        $('input#si_input').val(sampling_instrument);
-                        $('textarea#sna_method_input').val(sampling_method);
-                        $('textarea#dqi_input').val(data_quality_method);
+
                     }                
                 }
                  console.log("clicking data type button")
                  saveInput('data_type');
             }
-        }
 
         //FORM PAGE 4
 
