@@ -5,7 +5,12 @@ var metadata_raw = metadata_url.replace('file', 'files')
 $.getJSON(metadata_raw)
     .then(metadata => {
 
-    //general sections of the metdata record
+    //keys to the cookie jar
+    var csrf_token = '270ef4eeede54309bf726d6cb3c6d6f8'
+    var submitter_no = '1063'
+    var submission_no = 'B5RC8A'
+
+    //general sections of the metadata record
     var citation_contacts = metadata.metadata.values.contacts.citation_contacts;
     var additional_contacts = metadata.metadata.values.contacts.credits;
     var time_range = metadata.metadata.values.time_period.coverage[0].range;
@@ -49,7 +54,7 @@ $.getJSON(metadata_raw)
           "sec-fetch-site": "same-origin",
           "x-requested-with": "XMLHttpRequest"
         },
-        "referrer": "https://www.nodc.noaa.gov/s2n/package3.html?submission_no=B5RC8A&submitter_no=1063&csrf_token=270ef4eeede54309bf726d6cb3c6d6f8",
+        "referrer": "https://www.nodc.noaa.gov/s2n/package3.html?submission_no=" + submission_no + "&submitter_no=" + submitter_no + "&csrf_token=" + csrf_token,
         "referrerPolicy": "no-referrer-when-downgrade",
         "body": fetch_body,
         "method": "POST",
@@ -70,27 +75,27 @@ $.getJSON(metadata_raw)
     //loops through multiple contacts, defines responsible person fetch body and sends
     for (i in citation_contacts) {
       var person_metadata = {
-        submission_no: 'B5RC8A',
-        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
+        submission_no: submission_no,
+        csrf_token: csrf_token,
         first: citation_contacts[i].person.first_name,
         last: citation_contacts[i].person.last_name,
         role: roleMap[citation_contacts[i].role],
-        rp_email: citation_contacts[i].person.email,
+        rp_email: citation_contacts[i].address.email,
         institution: citation_contacts[i].position.organization,
         action:'save',
         type: 'person',
-        row_no: '1',
-        selected_id: '-1'
+        row_no: i+1,
+        selected_id: i-1
       }
 
-    //inputFormData(encodeFormData(person_metadata));
+    inputFormData(encodeFormData(person_metadata));
 
     }
 
     //defines funding agency fetch body and sends (need a better ISO field)
     var funding_agency_metadata = {
-      submission_no: 'B5RC8A',
-      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
+      submission_no: submission_no,
+      csrf_token: csrf_token,
       action: 'save',
       type: 'funding_agency',
       row_no: '1',
@@ -98,13 +103,13 @@ $.getJSON(metadata_raw)
       selected_id: '-1'
     }
 
-    //inputFormData(encodeFormData(funding_agency_metadata));
+    inputFormData(encodeFormData(funding_agency_metadata));
 
 
     //defines related projects/programs fetch body and sends (need a better ISO field)
     var related_program_metadata = {
-      submission_no: 'B5RC8A',
-      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
+      submission_no: submission_no,
+      csrf_token: csrf_token,
       action: 'save',
       type: 'project',
       row_no: '1',
@@ -112,7 +117,7 @@ $.getJSON(metadata_raw)
       selected_id: '-1'
     }
 
-    //inputFormData(encodeFormData(related_program_metadata));
+    inputFormData(encodeFormData(related_program_metadata));
 
     //page 2: dates & locations
     //maps the form fields to ISO metadata fields
@@ -132,11 +137,11 @@ $.getJSON(metadata_raw)
         type: 'column',
         column_name: i,
         value: dates_locations_fields[i],
-      submission_no: 'B5RC8A',
-      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8'
+      submission_no: submission_no,
+      csrf_token: csrf_token
       }
 
-    //inputFormData(encodeFormData(dates_locations_metadata));
+    inputFormData(encodeFormData(dates_locations_metadata));
 
     }
 
@@ -149,8 +154,8 @@ $.getJSON(metadata_raw)
     //defines fetch body for platform field & sea name and sends
     for (i in platform_fields) {
       var platform_metadata = {
-        submission_no: 'B5RC8A',
-        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
+        submission_no: submission_no,
+        csrf_token: csrf_token,
         action: 'save',
         type: i,
         row_no: '1',
@@ -158,7 +163,7 @@ $.getJSON(metadata_raw)
         selected_id: '-1'
       }
 
-     //inputFormData(encodeFormData(platform_metadata));
+     inputFormData(encodeFormData(platform_metadata));
 
     }
 
@@ -177,8 +182,8 @@ $.getJSON(metadata_raw)
           };
 
         var parameter_metadata = {
-          submission_no: 'B5RC8A',
-          csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
+          submission_no: submission_no,
+          csrf_token: csrf_token,
           data_type: parameter,
           obs_type: 'in situ',
           sampling_instrument: 'pump sampler',
@@ -194,22 +199,13 @@ $.getJSON(metadata_raw)
           sampling_instrument_id: '34' 
         }
       
-      //inputFormData(encodeFormData(parameter_metadata));
+      inputFormData(encodeFormData(parameter_metadata));
 
       }
 
     }
 
     //page 4: package description
-    //creates dataset author list  
-    //for(i in citation_contacts) {
-      //      dataset_author_list = dataset_author_list + citation_contacts[i].person.last_name
-        //      + ", " + citation_contacts[i].person.first_name
-          //    if (i != citation_contacts.length-1) {
-            //      dataset_author_list = dataset_author_list + "; "
-              //}
-        //};
-
     //maps form fields to ISO metadata
     var package_fields = {
       'recommended_title': 'N',
@@ -227,15 +223,12 @@ $.getJSON(metadata_raw)
         type: 'column',
         column_name: i,
         value: package_fields[i],
-        submission_no: 'B5RC8A',
-        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8'
+        submission_no: submission_no,
+        csrf_token: csrf_token
       }
 
     inputFormData(encodeFormData(package_metadata));
 
     }
-
-
-//location.reload();
 
 });
