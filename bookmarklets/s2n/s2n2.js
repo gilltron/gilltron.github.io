@@ -6,6 +6,7 @@ $.getJSON(metadata_raw)
     .then(metadata => {
 
     //keys to the cookie jar
+    //TODO get these fresh with a get
     var csrf_token = '270ef4eeede54309bf726d6cb3c6d6f8'
     var submitter_no = '1063'
     var submission_no = 'B5RC8A'
@@ -169,7 +170,6 @@ $.getJSON(metadata_raw)
 
     // page 3: data types
     //defines fetch body and sends data for multiple parameters
-    // TODO prompt for each parameter
     for (i in data_tables) {
       for (j in data_tables[i].attributes) {
 
@@ -199,7 +199,11 @@ $.getJSON(metadata_raw)
           sampling_instrument_id: '34' 
         }
       
-      inputFormData(encodeFormData(parameter_metadata));
+      if (confirm("Input " + parameter + "?")) {
+        
+        inputFormData(encodeFormData(parameter_metadata));
+
+        }
 
       }
 
