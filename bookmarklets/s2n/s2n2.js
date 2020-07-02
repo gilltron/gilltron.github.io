@@ -60,7 +60,54 @@ $.getJSON(metadata_raw)
 
     //page 1: people & projects
 
+
+
     //page 2: dates & locations
+    //maps the form fields to ISO metadata fields
+    var dates_locations_fields = {
+      'start_date': time_range.start.year + "-" + padDatePart(time_range.start.month) + "-" + padDatePart(time_range.start.day),
+      'end_date': time_range.end.year + "-" + padDatePart(time_range.end.month) + "-" + padDatePart(time_range.end.day),
+      'n_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].n),
+      's_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].s),
+      'e_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].e),
+      'w_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].w)
+    }
+
+    //loops through form fields to send values via fetch
+    for (i in dates_locations_fields) {
+      var dates_locations_metadata = {
+        action: 'save',
+        type: 'column',
+        column_name: i,
+        value: package_fields[i],
+      submission_no: 'B5RC8A',
+      csrf_token: 'b2259775b31940099563e41d878b3fea'
+      }
+    }
+
+    inputFormData(encodeFormData(dates_locations_metadata));
+
+    //maps form fields to ISO fields (need to find better ISO field for platform)
+    var platform_fields = {
+      'platform': metadata.metadata.values.contacts.credits[2],
+      'sea_name': metadata.metadata.values.spatial.bounds_and_description.spatial_description
+    }
+
+    //makes fetch body for platform field & sea name + sends metadata via fetch
+    for (i in platform_fields) {
+      var platform_metadata = {
+        submission_no: 'B5RC8A',
+        csrf_token: 'f0ae21cacc1045de9cc1e8ae9f373391',
+        action: 'save',
+        type: i,
+        row_no: '1',
+        value: platform_fields[i],
+        selected_id: '-1'
+      }
+
+      inputFormData(encodeFormData(platform_metadata));
+
+    }
 
     // page 3: data types
     //defines fetch body and sends data for multiple parameters
@@ -112,7 +159,7 @@ $.getJSON(metadata_raw)
         };
 
     //maps form fields to ISO metadata
-    package_fields = {
+    var package_fields = {
       'title': metadata.metadata.values.description.title,
       'abstract': metadata.metadata.values.description.abstract,
       'author_list': dataset_author_list,
@@ -122,7 +169,7 @@ $.getJSON(metadata_raw)
 
     //loops through form fields to send values via fetch
     for (i in package_fields) {
-      var title_metadata = {
+      var package_metadata = {
         action: 'save',
         type: 'column',
         column_name: i,
@@ -139,3 +186,4 @@ location.reload();
 window.alert("Done!");
 
 });
+
