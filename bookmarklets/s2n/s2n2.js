@@ -58,7 +58,13 @@ $.getJSON(metadata_raw)
       });
     };
 
-    // defines fetch body for multiple parameters
+    //page 1: people & projects
+
+    //page 2: dates & locations
+
+    // page 3: data types
+    //defines fetch body and sends data for multiple parameters
+    // TODO prompt for each parameter
     for (i in data_tables) {
       for (j in data_tables[i].attributes) {
 
@@ -94,8 +100,42 @@ $.getJSON(metadata_raw)
 
     };
 
+    //page 4: package description
+    //creates dataset author list  
+    for(var i in contacts) {
+            dataset_author_list = dataset_author_list
+             + contacts[i].person.last_name
+              + ", " + contacts[i].person.first_name
+              if (i != contacts.length-1) {
+                  dataset_author_list = dataset_author_list + "; "
+              }
+        };
+
+    //maps form fields to ISO metadata
+    package_fields = {
+      'title': metadata.metadata.values.description.title,
+      'abstract': metadata.metadata.values.description.abstract,
+      'author_list': dataset_author_list,
+      'purpose': metadata.metadata.values.description.purpose,
+      'reference': 'NA'
+    }
+
+    //loops through form fields to send values via fetch
+    for (i in package_fields) {
+      var title_metadata = {
+        action: 'save',
+        type: 'column',
+        column_name: i,
+        value: package_fields[i],
+      submission_no: 'B5RC8A',
+      csrf_token: 'b2259775b31940099563e41d878b3fea'
+      }
+    }
+
+    inputFormData(encodeFormData(package_metadata));
+
+
 location.reload();
 window.alert("Done!");
 
 });
-
