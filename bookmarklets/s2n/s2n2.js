@@ -59,8 +59,60 @@ $.getJSON(metadata_raw)
     };
 
     //page 1: people & projects
+    //maps contact role form fields to ISO fields
+    var roleMap = {
+                author:'principal investigator',
+                originator:'primary point of contact',
+                owner:'principal investigator',
+                principalInvestigator:'principal investigator',
+        }
+
+    //defines responsible person fetch body and sends
+    for (i in citation_contacts) {
+      var person_metadata = {
+        submission_no: 'B5RC8A',
+        csrf_token: '618b9913f32f457596a781e8c27ccbf4',
+        first: citation_contacts[i].person.first_name,
+        last: citation_contacts[i].person.last_name,
+        role: roleMap[citation_contacts[i].role],
+        rp_email: citation_contacts[i].person.email,
+        institution: citation_contacts[i].position.organization,
+        action:'save',
+        type: 'person',
+        row_no: '1'
+        selected_id: '-1'
+      }
+
+      inputFormData(encodeFormData(person_metadata));
+
+    }
+
+    //defines funding agency fetch body and sends via fetch (need a better ISO field)
+    var funding_agency_metadata = {
+      submission_no: 'B5RC8A',
+      csrf_token: '7be238476c744e75a6526e738d82083c',
+      action: 'save',
+      type: 'funding_agency',
+      row_no: '1',
+      value: metadata.metadata.values.contacts.credits[0],
+      selected_id: '-1'
+    }
+
+    inputFormData(encodeFormData(funding_agency_metadata));
 
 
+    //defines related projects/programs fetch body and sends (need a better ISO field)
+    var related_program_metadata = {
+      submission_no: 'B5RC8A',
+      csrf_token: '401a37e985cc4d4084da4197c01829f3',
+      action: 'save',
+      type: 'project',
+      row_no: '1',
+      value: metadata.metadata.values.contacts.credits[1],
+      selected_id: '-1'
+    }
+
+    inputFormData(encodeFormData(related_program_metadata));
 
     //page 2: dates & locations
     //maps the form fields to ISO metadata fields
@@ -174,8 +226,8 @@ $.getJSON(metadata_raw)
         type: 'column',
         column_name: i,
         value: package_fields[i],
-      submission_no: 'B5RC8A',
-      csrf_token: 'b2259775b31940099563e41d878b3fea'
+        submission_no: 'B5RC8A',
+        csrf_token: 'b2259775b31940099563e41d878b3fea'
       }
     }
 
@@ -186,4 +238,3 @@ location.reload();
 window.alert("Done!");
 
 });
-
