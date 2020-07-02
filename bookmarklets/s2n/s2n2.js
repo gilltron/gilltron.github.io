@@ -9,7 +9,7 @@ $.getJSON(metadata_raw)
     var citation_contacts = metadata.metadata.values.contacts.citation_contacts;
     var additional_contacts = metadata.metadata.values.contacts.credits;
     var time_range = metadata.metadata.values.time_period.coverage[0].range;
-    var spatial_extent = metadata.metadata.values.spatial.bounds_and_description
+    var spatial_extent = metadata.metadata.values.spatial.bounds_and_description;
     var data_tables = metadata.metadata.values.entity.data_table;
 
     //adds zeros to lat/long if needed
@@ -49,7 +49,7 @@ $.getJSON(metadata_raw)
           "sec-fetch-site": "same-origin",
           "x-requested-with": "XMLHttpRequest"
         },
-        "referrer": "https://www.nodc.noaa.gov/s2n/package3.html?submission_no=B5RC8A&submitter_no=1063&csrf_token=8d4f98149ff04dd0a3c9d67588eaea48",
+        "referrer": "https://www.nodc.noaa.gov/s2n/package3.html?submission_no=B5RC8A&submitter_no=1063&csrf_token=270ef4eeede54309bf726d6cb3c6d6f8",
         "referrerPolicy": "no-referrer-when-downgrade",
         "body": fetch_body,
         "method": "POST",
@@ -67,11 +67,11 @@ $.getJSON(metadata_raw)
                 principalInvestigator:'principal investigator',
         }
 
-    //defines responsible person fetch body and sends
+    //loops through multiple contacts, defines responsible person fetch body and sends
     for (i in citation_contacts) {
       var person_metadata = {
         submission_no: 'B5RC8A',
-        csrf_token: '618b9913f32f457596a781e8c27ccbf4',
+        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
         first: citation_contacts[i].person.first_name,
         last: citation_contacts[i].person.last_name,
         role: roleMap[citation_contacts[i].role],
@@ -79,18 +79,18 @@ $.getJSON(metadata_raw)
         institution: citation_contacts[i].position.organization,
         action:'save',
         type: 'person',
-        row_no: '1'
+        row_no: '1',
         selected_id: '-1'
       }
 
-      inputFormData(encodeFormData(person_metadata));
+    //inputFormData(encodeFormData(person_metadata));
 
     }
 
-    //defines funding agency fetch body and sends via fetch (need a better ISO field)
+    //defines funding agency fetch body and sends (need a better ISO field)
     var funding_agency_metadata = {
       submission_no: 'B5RC8A',
-      csrf_token: '7be238476c744e75a6526e738d82083c',
+      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
       action: 'save',
       type: 'funding_agency',
       row_no: '1',
@@ -98,13 +98,13 @@ $.getJSON(metadata_raw)
       selected_id: '-1'
     }
 
-    inputFormData(encodeFormData(funding_agency_metadata));
+    //inputFormData(encodeFormData(funding_agency_metadata));
 
 
     //defines related projects/programs fetch body and sends (need a better ISO field)
     var related_program_metadata = {
       submission_no: 'B5RC8A',
-      csrf_token: '401a37e985cc4d4084da4197c01829f3',
+      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
       action: 'save',
       type: 'project',
       row_no: '1',
@@ -112,44 +112,45 @@ $.getJSON(metadata_raw)
       selected_id: '-1'
     }
 
-    inputFormData(encodeFormData(related_program_metadata));
+    //inputFormData(encodeFormData(related_program_metadata));
 
     //page 2: dates & locations
     //maps the form fields to ISO metadata fields
     var dates_locations_fields = {
       'start_date': time_range.start.year + "-" + padDatePart(time_range.start.month) + "-" + padDatePart(time_range.start.day),
       'end_date': time_range.end.year + "-" + padDatePart(time_range.end.month) + "-" + padDatePart(time_range.end.day),
-      'n_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].n),
-      's_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].s),
-      'e_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].e),
-      'w_boundary': padDeg(values.spatial.bounds_and_description.bounding_box[0].w)
+      'n_boundary': padDeg(spatial_extent.bounding_box[0].n),
+      's_boundary': padDeg(spatial_extent.bounding_box[0].s),
+      'e_boundary': padDeg(spatial_extent.bounding_box[0].e),
+      'w_boundary': padDeg(spatial_extent.bounding_box[0].w)
     }
 
-    //loops through form fields to send values via fetch
+    //loops through form fields, defines dates & locations fetch body and sends
     for (i in dates_locations_fields) {
       var dates_locations_metadata = {
         action: 'save',
         type: 'column',
         column_name: i,
-        value: package_fields[i],
+        value: dates_locations_fields[i],
       submission_no: 'B5RC8A',
-      csrf_token: 'b2259775b31940099563e41d878b3fea'
+      csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8'
       }
-    }
 
-    inputFormData(encodeFormData(dates_locations_metadata));
+    //inputFormData(encodeFormData(dates_locations_metadata));
+
+    }
 
     //maps form fields to ISO fields (need to find better ISO field for platform)
     var platform_fields = {
-      'platform': metadata.metadata.values.contacts.credits[2],
-      'sea_name': metadata.metadata.values.spatial.bounds_and_description.spatial_description
+      'platform': additional_contacts[2],
+      'sea_name': spatial_extent.spatial_description
     }
 
-    //makes fetch body for platform field & sea name + sends metadata via fetch
+    //defines fetch body for platform field & sea name and sends
     for (i in platform_fields) {
       var platform_metadata = {
         submission_no: 'B5RC8A',
-        csrf_token: 'f0ae21cacc1045de9cc1e8ae9f373391',
+        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
         action: 'save',
         type: i,
         row_no: '1',
@@ -157,7 +158,7 @@ $.getJSON(metadata_raw)
         selected_id: '-1'
       }
 
-      inputFormData(encodeFormData(platform_metadata));
+     //inputFormData(encodeFormData(platform_metadata));
 
     }
 
@@ -177,7 +178,7 @@ $.getJSON(metadata_raw)
 
         var parameter_metadata = {
           submission_no: 'B5RC8A',
-          csrf_token: '04ab859e933f425f8aeba2ad2e593144',
+          csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8',
           data_type: parameter,
           obs_type: 'in situ',
           sampling_instrument: 'pump sampler',
@@ -191,30 +192,30 @@ $.getJSON(metadata_raw)
           selected_id: '-1',
           obs_type_id: '-1',
           sampling_instrument_id: '34' 
-        };
+        }
       
-        inputFormData(encodeFormData(parameter_metadata));
+      //inputFormData(encodeFormData(parameter_metadata));
 
-      };
+      }
 
-    };
+    }
 
     //page 4: package description
     //creates dataset author list  
-    for(var i in contacts) {
-            dataset_author_list = dataset_author_list
-             + contacts[i].person.last_name
-              + ", " + contacts[i].person.first_name
-              if (i != contacts.length-1) {
-                  dataset_author_list = dataset_author_list + "; "
-              }
-        };
+    //for(i in citation_contacts) {
+      //      dataset_author_list = dataset_author_list + citation_contacts[i].person.last_name
+        //      + ", " + citation_contacts[i].person.first_name
+          //    if (i != citation_contacts.length-1) {
+            //      dataset_author_list = dataset_author_list + "; "
+              //}
+        //};
 
     //maps form fields to ISO metadata
     var package_fields = {
+      'recommended_title': 'N',
       'title': metadata.metadata.values.description.title,
       'abstract': metadata.metadata.values.description.abstract,
-      'author_list': dataset_author_list,
+      'author_list': citation_contacts.map(c=>c.person.last_name + ", " + c.person.first_name).join('; '),
       'purpose': metadata.metadata.values.description.purpose,
       'reference': 'NA'
     }
@@ -227,14 +228,14 @@ $.getJSON(metadata_raw)
         column_name: i,
         value: package_fields[i],
         submission_no: 'B5RC8A',
-        csrf_token: 'b2259775b31940099563e41d878b3fea'
+        csrf_token: '270ef4eeede54309bf726d6cb3c6d6f8'
       }
-    }
 
     inputFormData(encodeFormData(package_metadata));
 
+    }
 
-location.reload();
-window.alert("Done!");
+
+//location.reload();
 
 });
