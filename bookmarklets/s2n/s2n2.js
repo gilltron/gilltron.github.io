@@ -6,10 +6,10 @@ $.getJSON(metadata_raw)
     .then(metadata => {
 
     //keys to the cookie jar
-    //TODO get these fresh with a get
-    var csrf_token = '270ef4eeede54309bf726d6cb3c6d6f8'
-    var submitter_no = '1063'
-    var submission_no = 'B5RC8A'
+    var parsedUrl = new URL(window.location.href);
+    var csrf_token = parsedUrl.searchParams.get('csrf_token');
+    var submitter_no = parsedUrl.searchParams.get('submitter_no');
+    var submission_no = parsedUrl.searchParams.get('submission_no');
 
     //general sections of the metadata record
     var citation_contacts = metadata.metadata.values.contacts.citation_contacts;
