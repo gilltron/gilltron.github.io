@@ -100,7 +100,7 @@ $.getJSON(metadata_raw)
       action: 'save',
       type: 'funding_agency',
       row_no: '1',
-      value: metadata.metadata.values.contacts.credits[0],
+      value: window.prompt('Optional: please enter the funding agency...'),
       selected_id: '-1'
     }
 
@@ -114,7 +114,7 @@ $.getJSON(metadata_raw)
       action: 'save',
       type: 'project',
       row_no: '1',
-      value: metadata.metadata.values.contacts.credits[1],
+      value: window.prompt('Optional: please enter the related project or program...'),
       selected_id: '-1'
     }
 
@@ -148,7 +148,7 @@ $.getJSON(metadata_raw)
 
     //maps form fields to ISO fields (need to find better ISO field for platform)
     var platform_fields = {
-      'platform': additional_contacts[2],
+      'platform': window.prompt('Optional: please enter the platform name...'),
       'sea_name': spatial_extent.spatial_description
     }
 
@@ -185,12 +185,12 @@ $.getJSON(metadata_raw)
           submission_no: submission_no,
           csrf_token: csrf_token,
           data_type: parameter,
-          obs_type: 'in situ',
-          sampling_instrument: 'pump sampler',
-          sna_method: 'NA',
-          data_quality_info: 'NA',
+          obs_type: window.prompt('Required: please enter the observation category (e.g., in situ)...'),
+          sampling_instrument: window.prompt('Required: please enter the sampling instrument (e.g., CTD)...'),
+          sna_method: window.prompt('Optional: please enter the sampling & analyzing method...'),
+          data_quality_info: window.prompt('Optional: please enter the data quality method...'),
           unit: units,
-          MorC: 'M',
+          MorC: window.prompt('Required: please enter "M" for measured or "C" for calculated...'),
           action: 'save',
           type: 'data_type',
           row_no: '1',
@@ -217,7 +217,7 @@ $.getJSON(metadata_raw)
       'abstract': metadata.metadata.values.description.abstract,
       'author_list': citation_contacts.map(c=>c.person.last_name + ", " + c.person.first_name).join('; '),
       'purpose': metadata.metadata.values.description.purpose,
-      'reference': 'NA'
+      'reference': window.prompt('Optional: please enter a reference...')
     }
 
     //loops through form fields to send values via fetch
