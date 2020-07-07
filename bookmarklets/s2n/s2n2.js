@@ -175,10 +175,12 @@ $.getJSON(metadata_raw)
 
         var parameter = data_tables[i].attributes[j].attribute_basics.code_name;
 
+        if (confirm("Input " + parameter + "?")) {
+
         if (data_tables[i].attributes[j].attribute_basics.units != undefined) {
           var units = data_tables[i].attributes[j].attribute_basics.units.unit;
         } else {
-            var units = "Unknown";
+            var units = window.prompt('Required: please enter units...');
           };
 
         var parameter_metadata = {
@@ -199,7 +201,7 @@ $.getJSON(metadata_raw)
           sampling_instrument_id: '34' 
         }
       
-      if (confirm("Input " + parameter + "?")) {
+      
         
         inputFormData(encodeFormData(parameter_metadata));
 
