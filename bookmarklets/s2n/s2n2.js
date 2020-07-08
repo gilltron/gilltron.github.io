@@ -180,19 +180,19 @@ $.getJSON(metadata_raw)
         if (data_tables[i].attributes[j].attribute_basics.units != undefined) {
           var units = data_tables[i].attributes[j].attribute_basics.units.unit;
         } else {
-            var units = window.prompt('Required: please enter units...');
+            var units = window.prompt('Required: please enter units for... '  + parameter);
           };
 
         var parameter_metadata = {
           submission_no: submission_no,
           csrf_token: csrf_token,
           data_type: parameter,
-          obs_type: window.prompt('Required: please enter the observation category (e.g., in situ)...'),
-          sampling_instrument: window.prompt('Required: please enter the sampling instrument (e.g., CTD)...'),
-          sna_method: window.prompt('Optional: please enter the sampling & analyzing method...'),
-          data_quality_info: window.prompt('Optional: please enter the data quality method...'),
+          obs_type: window.prompt('Required: please enter the observation category for... ' + parameter, 'in situ'),
+          sampling_instrument: window.prompt('Required: please enter the sampling instrument for... ' + parameter, 'CTD'),
+          sna_method: window.prompt('Optional: please enter the sampling & analyzing method for... ' + parameter, 'NA'),
+          data_quality_info: window.prompt('Optional: please enter the data quality method for... ' + parameter, 'NA'),
           unit: units,
-          MorC: window.prompt('Required: please enter "M" for measured or "C" for calculated...'),
+          MorC: window.prompt('Required: please enter "M" for measured or "C" for calculated for... ' + parameter, 'M'),
           action: 'save',
           type: 'data_type',
           row_no: '1',
@@ -219,7 +219,7 @@ $.getJSON(metadata_raw)
       'abstract': metadata.metadata.values.description.abstract,
       'author_list': citation_contacts.map(c=>c.person.last_name + ", " + c.person.first_name).join('; '),
       'purpose': metadata.metadata.values.description.purpose,
-      'reference': window.prompt('Optional: please enter a reference...')
+      'reference': window.prompt('Optional: please enter a reference related to this dataset...')
     }
 
     //loops through form fields to send values via fetch
