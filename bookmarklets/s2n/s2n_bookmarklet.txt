@@ -1,1 +1,1 @@
-javascript: (function () {      var jsCode = document.createElement('script');      jsCode.setAttribute('src', 'https://gilltron.github.io/bookmarklets/s2n/s2n2.js');                     document.body.appendChild(jsCode);   }());
+javascript: (function () {      var jsCode = document.createElement('script');      jsCode.setAttribute('src', 'https://gilltron.github.io/bookmarklets/s2n/s2n.js');                     document.body.appendChild(jsCode);   }());
