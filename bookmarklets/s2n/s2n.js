@@ -237,4 +237,17 @@ $.getJSON(metadata_raw)
 
     }
 
+    //page 5: upload & submit
+    //maps form fields to ISO metadata    
+    var submission_metadata = {
+        action: 'save',
+        type: 'column',
+        column_name: 'file_comment',
+        value: 'Please assign a DOI for this dataset.',
+        submission_no: submission_no,
+        csrf_token: csrf_token
+      }
+
+    inputFormData(encodeFormData(submission_metadata));
+
 });
