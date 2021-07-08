@@ -1,0 +1,74 @@
+## What is NCEImagic?
+This widget was built to automatically copy metadata fields from the ResearchWorkspace metadata editor to the Send2NCEI website. The goal is to minimize copy-paste and any associated errors.
+
+##Getting the Send 2 NCEI bookmarklet
+The code for this Send2NCEI widget was written in 2020 by Ian Gill and is stored on Github
+https://github.com/gilltron/gilltron.github.io/tree/master/bookmarklets/s2n
+
+##To create a bookmarklet for your own use
+1. Copy the full text of this file:
+s2n_bookmarklet.txt
+which is accessible at https://github.com/gilltron/gilltron.github.io/blob/master/bookmarklets/s2n/s2n_bookmarklet.txt
+
+2. Open your bookmark bar and create a new bookmark:
+Click "add new bookmark"
+Name the bookmark
+Paste in the copied text from the s2n_bookmarklet.txt file
+You should see the bookmark appear on your bookmarks tab or menu.
+You've created your bookmarklet!
+
+##Preparations to use the bookmarklet in Send2NCEI
+- create a text file for yourself with the following information taken from the metadata record and your knowledge of the data you are archiving:
+1. Funder
+2. Related project
+3. Platform (ship)
+4. Parameters (knowns as Resource Content > Attributes in the Research Workspace)
+
+For the parameters you will want to list any attributes you want to describe in the NCEI record. For each attribute/parameter will also want to list the text file.
+- sample instrument
+- observation Category
+
+Guidance for these fields from NCEI:
+Data Types: Start typing in the text box. Select from list or provide additional parameter/variable names, units of measure, sampling instrument, or observation categories if not listed in our menu.
+Parameter or Variable: The physical, biological, chemical, or other property being measured or calculated, e.g., water temperature. Select whether it is a measured or calculated property.
+Units of Measure: The unit of measure defining the parameter or variable, e.g., degree Celsius (°C)
+Observation Category: A broad characterization of the kind of parameter/variable that was observed, i.e., laboratory analysis, model output, in situ, satellite, other.
+Sampling Instrument: The general kind or type of instrument used to measure or calculate this parameter/variable.
+Sampling and Analyzing Method: A brief description of how the parameter/variable was measured or calculated. Include a citation to a published methodology or process, if applicable.
+Data Quality Method: A brief description of quality assurance checks, acceptable value ranges, quality indication flags related to this parameter/variable.
+
+##Creating a .JSON file for the metadata
+The S2N widget uses JSON, a file type, to work. So you will need to create a version of the metadata that are in the JSON file format.
+- Open the metadata record you want to import into Send2NCEI
+- View the record using Developer tools
+- Open the "Networks" tab
+- Refresh the page and you should see a list of new network connections. You are looking for a long alphanumeric string that is the metadata object. If you hover over the network names you will be looking for one for the metadata object, with a url like:
+https://researchworkspace.com/api/metadata/objectfull/alphanumericstring0?uid=numericstring&&lock=true
+- right click on the metadata object and select "Copy", then "Copy response"
+This gives you the json file of the metadata.
+-Navigate to the Research Workspace folder and create a new text file.
+- Paste the copied metadata object network response in to the text file.
+- title it "metadata.json"
+- save the file
+- right click over the newly created file and copy the url.
+
+
+Checklist for archiving using the Send2NCEI widget:
+- bookmarklet created
+- url to the .json metadata file copied into your clipboard
+- text file with extra details such as sample instruments for parameters
+- NCEI login!
+If you have all these items you are ready to archive with this magical tool.
+
+
+##Using the bookmarklet in Send2NCEI
+- sign in
+You will need to sign in with your login credentials to the Send2NCEI site.
+If you have not already created an account you can do so now.
+- click the bookmarklet you created. You should see a pop-up prompting you to paste in the url to the metadata.json file you created.
+*If you do not see that pop up, please confirm you have citation-levle contacts in your metadata record, and that you do not have pop-up blockers activated for the Send 2 NCEI website.
+- paste the url of the metadata record (see previous step) in to the popup window
+- add in the funder and platform information by copy/pasting from the text file you prepared.
+- select "OK" or "Cancel" for parameters you want to add to the record ("Ok") or not include in the record "Cancel"
+
+When you reach the end of the pop-up prompts the pop-up will go away. You can then refresh the page. When you refresh you should see all the metadata from the original record has been pasted into the respective fields in NCEI's form. Review and edit before submitting this record to be archived with NCEI.
